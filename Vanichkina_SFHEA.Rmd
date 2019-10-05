@@ -1,0 +1,78 @@
+---
+output: 
+  pdf_document:
+    citation_package: natbib
+    keep_tex: true
+    fig_caption: true
+    latex_engine: pdflatex
+    template: svm-latex-ms.tex
+bibliography: sfhea.bib
+header-includes:
+  -  \usepackage{hyperref}
+biblio-style: apsr
+title: "Application for..."
+author:
+- name: Darya Vanichkina
+- affiliation: University of Sydney
+abstract: "This document provides an introduction to R Markdown, argues for its benefits, and presents a sample manuscript template intended for an academic audience. I include basic syntax to R Markdown and a minimal working example of how the analysis itself can be conducted within R with the `knitr` package."
+date: "`r format(Sys.time(), '%B %d, %Y')`"
+geometry: margin=1in
+fontfamily: mathpazo
+fontsize: 11pt
+# spacing: double
+endnote: no
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(cache=TRUE,
+                      message=FALSE, warning=FALSE,
+                      fig.path='figs/',
+                      cache.path = '_cache/',
+                      fig.process = function(x) {
+                      x2 = sub('-\\d+([.][a-z]+)$', '\\1', x)
+                      if (file.rename(x, x2)) x2 else x
+                      })
+library(lemon)
+knit_print.data.frame <- lemon_print
+```
+
+
+# Introduction
+
+Academic workflow, certainly in political science, is at a crossroads. 
+
+
+
+Almost forgot about creating a footnote.[^1] This will do it again.[^2]
+
+[^1]: The first footnote
+[^2]: The second footnote
+
+Want to cite something? 
+
+- Find your biblatexkey in your bib file.
+- Put an @ before it, like @smith1984, or whatever it is.
+- @smith1984 creates an in-text citation (e.g. Smith (1984) says...)
+- [@smith1984] creates a parenthetical citation (Smith, 1984)
+
+That'll also automatically create a reference list at the end of the document.
+
+
+```{r, fig.cap="A Coefficient Plot", message=F, warning=F,render=lemon_print}
+
+
+head(mtcars)
+
+```
+
+
+
+
+<!--
+# References
+\setlength{\parindent}{-0.2in}
+\setlength{\leftskip}{0.2in}
+\setlength{\parskip}{8pt}
+\vspace*{-0.2in}
+\noindent
+-->
